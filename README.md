@@ -2,11 +2,32 @@
 
 這是一個將 **Dify (LLM 應用開發平台)** 與 **Unity (遊戲引擎)** 初步整合的實作專案。透過 RAG (檢索增強生成) 技術，讓 Unity 內的虛擬助理能讀懂 PDF 技術手冊，透過藉由 Unity 實現跨平台能力在未來發布為 Mobile AR。
 
+---
+
+## 📺 成果展示 (Demo Video)
+
+[![點此觀看示範影片](https://www.youtube.com/shorts/YetsiyF0d1Y/0.jpg)](https://www.youtube.com/shorts/YetsiyF0d1Y)
+
+*點擊以跳轉至 YouTube 觀看完整展示*
+
+---
+
 ## 🚀 專案亮點
 
-* **在地化 AI 大腦**：基於 Docker 部署 Dify，確保企業級技術文檔數據不外流，隱私有保障。
+* **在地化 AI 大腦**：基於 Docker 部署 Dify，使用本地模型時可確保企業內部技術文檔數據不外流，隱私有保障。
 * **智慧知識庫 (RAG)**：針對複雜技術手冊進行向量化處理，支援語義檢索，解決傳統關鍵字搜尋精準度不足的問題。
-* **模型靈活性**：透過 OpenRouter 接入 Claude 3.5 Sonnet、GPT-4o 或 Llama 3 等多種模型，可根據成本與需求隨時切換。
+* **雙軌技術測試**：包含 Dify (企業內網落地) 與 OpenRouter (公有雲跨平台) 雙重方案，依不同測試需求建置。
+
+## ⚠️ 開發分支與架構說明 (雙版本策略)
+
+本專案在實作過程中，為了解決不同的開發與部署需求，切分出兩種 API 串接模式：
+
+1. **Dify 本機部署版 (核心 RAG 測試)**
+   * **用途**：在電腦開發環境下，測試企業級文檔的向量化與工作流。
+   * **技術限制**：現階段無法應用於 Android，需額外配置區域網路 IP、電腦防火牆及 Unity 的 HTTP 明文傳輸權限。
+2. **OpenRouter 跨平台版 (Mobile AR 解決方案)**
+   * **用途**：為了解決上述網路限制，快速實現 Android 設備的實機展示。（未具備 RAG 功能）
+   * **優勢**：抽換底層 API 為 OpenRouter，手機只要連上外網即可直接與雲端 AI 溝通，可依需求於發布前切換 Claude 3.5 Sonnet / GPT-4o 等頂級模型。
 
 ## 🛠 技術架構
 
@@ -15,7 +36,7 @@
 * **前端引擎**: Unity 2022.3+ (URP/HDRP 支援)
 * **輸入系統**: Unity New Input System Package
 
-## 📦 快速開始與配置
+## 📦 快速開始與配置 (以 Dify 落地版為例)
 
 ### 1. 啟動 Dify 後端環境
 
@@ -41,7 +62,7 @@
 * **LLM 節點**：將「知識檢索」的輸出結果關聯至 Context 上下文。
 * **發布**：務必點擊右上角的「發布」按鈕，否則 API 變動不會生效。
 
-![Workflow](./Assets/Images/Workflow.jpg)
+![Workflow](./Assets/MyChatBot/Images/Workflow.jpg)
 
 ### 3. Unity Client 設定
 
@@ -52,7 +73,7 @@
    * ApiUrl: 設定為 http://localhost/v1/chat-messages。
 4. 按下 Play 鍵並點擊螢幕，按 [空白鍵] 即可發送測試問題。
 
-![Unity Inspector](./Assets/Images/Inspector.jpg)
+![Unity Inspector](./Assets/MyChatBot/Images/Inspector.jpg)
 
 ## 🖥 核心代碼邏輯 (JSON 處理)
 
@@ -66,10 +87,6 @@
         "\"user\": \"unity_dev_tester\"" +
     "}";
 
-## 💻 成果展示 (Unity Console)
-
-![Unity Console](./Assets/Images/Console.jpg)
-
 ## 🤖 AI 輔助開發聲明
 
 本專案在程式碼撰寫、架構設計與文件整理的過程中，有使用 AI 工具（如 Google Gemini / ChatGPT）作為輔助。所有生成的程式碼及邏輯皆已由開發者進行人工審查、測試與實際驗證，確保在 Unity 與 Dify 環境中能正常運行。
@@ -79,4 +96,4 @@
 本專案採用 **MIT License** 授權。您可以自由使用於個人或商業專案，詳情請參閱 LICENSE 檔案。
 
 ---
-最後更新日期：2026-04-13
+最後更新日期：2026-04-14
